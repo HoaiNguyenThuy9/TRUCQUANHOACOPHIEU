@@ -16,15 +16,27 @@ st.set_page_config(
 )
 
 # =============================
-# LOGO
+# THANH BÊN (SIDEBAR) - Thêm Logo và Đầu vào tại đây để gọn gàng hơn
 # =============================
-st.image("logo.jpg")
+# Bạn cũng có thể dùng cách này nếu muốn đưa logo vào sidebar:
+# st.sidebar.image("hinh.jpg", use_container_width=True)
 
 # =============================
-# TIÊU ĐỀ
+# TIÊU ĐỀ & LOGO (Hiển thị song song ở trang chính)
 # =============================
-st.title("📈 TRỰC QUAN HÓA GIÁ CỔ PHIẾU VÀ KIỂM ĐỊNH MANN-KENDALL")
-st.subheader("TS. VŨ ĐỨC BÌNH")
+col_title, col_logo = st.columns([4, 1])  # Chia tỉ lệ 4 phần cho tiêu đề, 1 phần cho logo
+
+with col_title:
+    st.title("📈 TRỰC QUAN HÓA GIÁ CỔ PHIẾU VÀ KIỂM ĐỊNH MANN-KENDALL")
+    st.subheader("ĐỀ TÀI 6- NGUYỄN THUÝ HOÀI")
+
+with col_logo:
+    # Hiển thị logo ở góc phải trên cùng
+    # Đảm bảo file 'logo.jpg' nằm cùng thư mục với file code python này
+    try:
+        st.image("logo.jpg", use_container_width=True)
+    except Exception:
+        st.warning("⚠️ Không tìm thấy file logo.jpg")
 
 st.markdown("---")
 
@@ -57,9 +69,7 @@ run = st.button(
 # CHẠY PHÂN TÍCH
 # =============================
 if run:
-
     with st.spinner("Đang tải dữ liệu..."):
-
         df = yf.download(
             ticker,
             start=start_date,
@@ -84,24 +94,19 @@ if run:
     )
 
     df = df.reindex(full_date_range)
-
     df = df.ffill()
 
     df["simple_ret"] = df["Close"].pct_change()
-
-    df["log_ret"] = np.log(
-        df["Close"] / df["Close"].shift(1)
-    )
+    df["log_ret"] = np.log(df["Close"] / df["Close"].shift(1))
 
     # =============================
     # HIỂN THỊ DỮ LIỆU
     # =============================
     st.subheader("📄 Dữ liệu")
-
     st.dataframe(df)
 
     # =============================
-    # BIỂU ĐỒ GIÁ & LOG RETURN
+    # BIỂU ĐỒ GIÁ & LOG RETURN (Sửa lỗi thụt lề ở đây)
     # =============================
     st.subheader("📈 Giá đóng cửa và Log Return")
 
@@ -119,7 +124,6 @@ if run:
         linewidth=2,
         label="Close Price"
     )
-
     ax[0].set_title("Giá đóng cửa")
     ax[0].set_ylabel("VND")
     ax[0].legend()
@@ -132,15 +136,13 @@ if run:
         linewidth=1.5,
         label="Log Return"
     )
-
     ax[1].set_title("Log Return")
     ax[1].set_ylabel("Return")
     ax[1].set_xlabel("Date")
     ax[1].legend()
-ax[1].grid(True)
+    ax[1].grid(True)  # Đã sửa lỗi thụt lề thụt dòng tại đây
 
     plt.tight_layout()
-
     st.pyplot(fig)
 
     # =============================
@@ -158,14 +160,12 @@ ax[1].grid(True)
         title=ticker,
         returnfig=True
     )
-
     st.pyplot(fig2)
 
     # =============================
     # KIỂM ĐỊNH MANN-KENDALL
     # =============================
     close_prices = df["Close"].dropna().reset_index(drop=True)
-
     result = mk.original_test(close_prices)
 
     st.subheader("📊 Kết quả kiểm định Mann-Kendall")

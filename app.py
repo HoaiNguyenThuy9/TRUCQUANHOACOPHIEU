@@ -34,7 +34,7 @@ with col_logo:
     # Hiển thị logo ở góc phải trên cùng
     # Đảm bảo file 'logo.jpg' nằm cùng thư mục với file code python này
     try:
-        st.image("logo.jpg", use_container_width=True)
+        st.image("hinh.jpg", use_container_width=True)
     except Exception:
         st.warning("⚠️ Không tìm thấy file logo.jpg")
 

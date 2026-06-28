@@ -13,7 +13,7 @@ st.set_page_config(
     layout="centered"
 )
 
-st.title("📈 KIỂM ĐỊNH XU HƯỚNG GIÁ CỔ PHIẾU BẰNG MANN-KENDALL")
+st.title("📈 KIỂM ĐỊNH XU HƯỚNG GIÁ CỔ PHIẾU BẰNG MANN-KENDALL-ĐỀ TÀI 2 THUÝ HOÀI")
 
 st.write(
     """

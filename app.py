@@ -9,11 +9,11 @@ import matplotlib.pyplot as plt
 # =============================
 st.set_page_config(
     page_title="Kiểm định Mann-Kendall",
-    page_icon="📈",
+    page_icon="hinh.jpg",
     layout="centered"
 )
 
-st.title("📈 KIỂM ĐỊNH XU HƯỚNG GIÁ CỔ PHIẾU BẰNG MANN-KENDALL-ĐỀ TÀI 2 THUÝ HOÀI")
+st.title("📈 KIỂM ĐỊNH XU HƯỚNG GIÁ CỔ PHIẾU BẰNG MANN-KENDALL-ĐỀ TÀI 6 THUÝ HOÀI")
 
 st.write(
     """
